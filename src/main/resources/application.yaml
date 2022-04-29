@@ -1,0 +1,23 @@
+---
+
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://nightly7x-us-im-1.nightly7x-us-im.root.hwx.site:3306/hive1
+    username: hive1
+    password: hive1
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+---
+spring:
+  config:
+    activate:
+      on-profile: debug
+  jpa:
+    show-sql: true
