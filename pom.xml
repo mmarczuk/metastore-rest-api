@@ -8,24 +8,39 @@
         <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.cloudera.demo</groupId>
+    <groupId>com.cloudera.metastore.api</groupId>
     <artifactId>metastore-rest-api</artifactId>
     <version>0.0.1</version>
     <name>metastore-rest-api</name>
-    <description>Metastore REST API Demo</description>
+    <description>Metastore REST API</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
@@ -55,23 +70,37 @@
             </dependencies>
         </profile>
         <profile>
-            <id>postgres</id>
+            <id>postgresql</id>
             <dependencies>
-                <dependency>
+               <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                     <version>42.3.4</version>
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>hive</id>
+            <dependencies>
+                <dependency>
+                    <groupId>ClouderaHiveJDBC</groupId>
+                    <artifactId>HiveJDBC42.jar</artifactId>
+                    <version>2.6.17.1020</version>
+                    <systemPath>${project.basedir}/lib/HiveJDBC42.jar</systemPath>
+                    <scope>system</scope>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
     <build>
+        <finalName>metastore-rest-api</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <includeSystemScope>true</includeSystemScope>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>
