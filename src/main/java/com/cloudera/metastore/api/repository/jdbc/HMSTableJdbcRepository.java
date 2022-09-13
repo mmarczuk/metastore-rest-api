@@ -22,7 +22,7 @@ public class HMSTableJdbcRepository implements HMSTableRepository {
         return jdbcTemplate.queryForObject(
                 "SELECT d.name, t.tbl_id, t.tbl_name\n" +
                         " FROM tbls t ON p.tbl_id = t.tbl_id\n" +
-                        " INNER JOIN dbs d ON d.db_id = d.db_id\n" +
+                        " INNER JOIN dbs d ON p.db_id = d.db_id\n" +
                         " WHERE d.name = ? AND t.tbl_name = ?",
                 (rs, rowNum) -> createTable(rs),
                 new Object[]{databaseName, tableName});
